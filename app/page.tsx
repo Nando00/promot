@@ -6,13 +6,6 @@ import { stringify } from "querystring";
 import prisma from "../lib/prisma"
 
 export default async function Home() {
-  const { userId } = auth();
-  const profile = await prisma.profile.findUnique({
-    where: {
-      clerkUserId: userId as string,
-    },
-  });
-
 
   return (
     <div className="h-screen bg-[#14213d] flex place-content-center content-center">
