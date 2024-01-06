@@ -14,7 +14,7 @@ export default async function Home() {
           className="bg-[#ffb703] w-[100px] h-[30px] rounded ml-auto mr-auto mt-2"
           type="button"
         >
-          Fetch data
+          Testing button
         </button>
 
 
