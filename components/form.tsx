@@ -4,6 +4,7 @@ import Link from "next/link";
 import registerschema from "@/lib/registerschema";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod"
+import { z } from "zod";
 
 export default function Form() {
   const theSubmit = async (data: FieldValues) => {
@@ -17,10 +18,14 @@ export default function Form() {
     handleSubmit,
     formState:{errors, isSubmitting},
     reset
-  } = useForm({
+  } = useForm<SignUpSchema>({
     // in here we connect the zod schema in the resolver we need that resolver in order for this to work
     resolver: zodResolver(registerschema)
   })
+
+  // we are adding the type safety
+  type SignUpSchema = z.infer<typeof registerschema>;
+
 
   return (
     <>
