@@ -1,7 +1,3 @@
-import { PrismaClient } from "@prisma/client";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/dist/server/api-utils";
-import { stringify } from "querystring";
 
 export default async function Home() {
   return (
