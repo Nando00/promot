@@ -9,31 +9,41 @@ datasource db {
 
 // we should use user for now and account we make our own email verification soon
 
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
+model User {
+  id               Int               @id @default(autoincrement())
+  email            String            @unique
+  clerkId          String?           @unique
+  name             String?
+  ideas            MarketingIdea[]
+  userInteractions UserInteraction[]
 }
 
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  password      String?
-  accounts      Account[]
+model MarketingIdea {
+  id        Int             @id @default(autoincrement())
+  userId    Int
+  prompt    String
+  response  String
+  createdAt DateTime        @default(now())
+  posts     MarketingPost[]
+  user      User            @relation(fields: [userId], references: [id])
+}
+
+model MarketingPost {
+  id        Int           @id @default(autoincrement())
+  ideaId    Int
+  content   String
+  platform  String // Consider making this an ENUM: `enum Platform { Facebook, TikTok, Instagram }`
+  status    String // Consider making this an ENUM: `enum Status { Draft, ReadyToPost, Posted }`
+  createdAt DateTime      @default(now())
+  postedAt  DateTime?
+  idea      MarketingIdea @relation(fields: [ideaId], references: [id])
+}
+
+model UserInteraction {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  input     String
+  response  String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
 }

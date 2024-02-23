@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider"
-import { ClerkProvider } from '@clerk/nextjs'
+import { ThemeProvider } from "@/components/theme-provider";
+import { ClerkProvider } from "@clerk/nextjs";
+// using font awesome here
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+
+config.autoAddCss = false;
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,17 +24,16 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" data-theme="dark">
-          <body className={inter.className}>
+        <body className={inter.className}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
-
-            {children}
-            </ThemeProvider>
-          </body>
+              {children}
+          </ThemeProvider>
+        </body>
       </html>
     </ClerkProvider>
   );
