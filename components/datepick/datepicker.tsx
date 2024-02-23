@@ -4,8 +4,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function Datepicker({}) {
-  const [startDate, setStartDate] = useState(new Date());
-  return (
+    const [startDate, setStartDate] = useState<Date | null>(new Date());
+    return (
     <DatePicker
       selected={startDate}
       showTimeSelect
